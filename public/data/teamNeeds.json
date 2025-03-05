@@ -1,0 +1,325 @@
+[
+    {
+        "team": "ARI",
+        "needs": [
+            "EDGE",
+            "DL",
+            "WR",
+            "CB",
+            "OT"
+        ]
+    },
+    {
+        "team": "ATL",
+        "needs": [
+            "EDGE",
+            "CB",
+            "DL",
+            "WR",
+            "LB"
+        ]
+    },
+    {
+        "team": "BAL",
+        "needs": [
+            "OT",
+            "EDGE",
+            "IOL",
+            "S",
+            "CB"
+        ]
+    },
+    {
+        "team": "BUF",
+        "needs": [
+            "DL",
+            "CB",
+            "S",
+            "EDGE",
+            "WR"
+        ]
+    },
+    {
+        "team": "CAR",
+        "needs": [
+            "EDGE",
+            "WR",
+            "DL",
+            "CB",
+            "S"
+        ]
+    },
+    {
+        "team": "CHI",
+        "needs": [
+            "OT",
+            "IOL",
+            "EDGE",
+            "RB",
+            "DL"
+        ]
+    },
+    {
+        "team": "CIN",
+        "needs": [
+            "DL",
+            "EDGE",
+            "WR",
+            "CB",
+            "TE"
+        ]
+    },
+    {
+        "team": "CLE",
+        "needs": [
+            "ATH",
+            "EDGE",
+            "QB",
+            "CB",
+            "RB",
+            "DL"
+        ]
+    },
+    {
+        "team": "DAL",
+        "needs": [
+            "RB",
+            "WR",
+            "DL",
+            "EDGE",
+            "OT"
+        ]
+    },
+    {
+        "team": "DEN",
+        "needs": [
+            "TE",
+            "RB",
+            "WR",
+            "DL",
+            "S"
+        ]
+    },
+    {
+        "team": "DET",
+        "needs": [
+            "EDGE",
+            "DL",
+            "IOL",
+            "CB",
+            "LB"
+        ]
+    },
+    {
+        "team": "GB",
+        "needs": [
+            "CB",
+            "EDGE",
+            "WR",
+            "DL",
+            "OT"
+        ]
+    },
+    {
+        "team": "HOU",
+        "needs": [
+            "WR",
+            "IOL",
+            "OT",
+            "DL",
+            "RB"
+        ]
+    },
+    {
+        "team": "IND",
+        "needs": [
+            "TE",
+            "CB",
+            "S",
+            "IOL",
+            "OT"
+        ]
+    },
+    {
+        "team": "JAX",
+        "needs": [
+            "ATH",
+            "DL",
+            "CB",
+            "OT",
+            "WR",
+            "IOL"
+        ]
+    },
+    {
+        "team": "KC",
+        "needs": [
+            "OT",
+            "DL",
+            "IOL",
+            "RB",
+            "TE"
+        ]
+    },
+    {
+        "team": "LV",
+        "needs": [
+            "QB",
+            "RB",
+            "WR",
+            "CB",
+            "DL"
+        ]
+    },
+    {
+        "team": "LAC",
+        "needs": [
+            "EDGE",
+            "TE",
+            "WR",
+            "RB",
+            "DL"
+        ]
+    },
+    {
+        "team": "LAR",
+        "needs": [
+            "OT",
+            "WR",
+            "QB",
+            "CB",
+            "LB"
+        ]
+    },
+    {
+        "team": "MIA",
+        "needs": [
+            "OT",
+            "S",
+            "IOL",
+            "DL",
+            "CB"
+        ]
+    },
+    {
+        "team": "MIN",
+        "needs": [
+            "DL",
+            "CB",
+            "S",
+            "RB",
+            "IOL"
+        ]
+    },
+    {
+        "team": "NE",
+        "needs": [
+            "ATH",
+            "OT",
+            "CB",
+            "EDGE",
+            "WR",
+            "DL"
+        ]
+    },
+    {
+        "team": "NO",
+        "needs": [
+            "EDGE",
+            "WR",
+            "TE",
+            "OT",
+            "CB"
+        ]
+    },
+    {
+        "team": "NYG",
+        "needs": [
+            "QB",
+            "CB",
+            "EDGE",
+            "DL",
+            "OT"
+        ]
+    },
+    {
+        "team": "NYJ",
+        "needs": [
+            "DL",
+            "QB",
+            "CB",
+            "TE",
+            "OT"
+        ]
+    },
+    {
+        "team": "PHI",
+        "needs": [
+            "EDGE",
+            "DL",
+            "LB",
+            "IOL",
+            "OT"
+        ]
+    },
+    {
+        "team": "PIT",
+        "needs": [
+            "WR",
+            "CB",
+            "DL",
+            "QB",
+            "RB"
+        ]
+    },
+    {
+        "team": "SF",
+        "needs": [
+            "OT",
+            "EDGE",
+            "CB",
+            "DL",
+            "WR"
+        ]
+    },
+    {
+        "team": "SEA",
+        "needs": [
+            "OT",
+            "IOL",
+            "EDGE",
+            "LB",
+            "DL"
+        ]
+    },
+    {
+        "team": "TB",
+        "needs": [
+            "EDGE",
+            "WR",
+            "LB",
+            "CB",
+            "S"
+        ]
+    },
+    {
+        "team": "TEN",
+        "needs": [
+            "EDGE",
+            "QB",
+            "CB",
+            "WR",
+            "OT"
+        ]
+    },
+    {
+        "team": "WAS",
+        "needs": [
+            "WR",
+            "EDGE",
+            "OT",
+            "CB",
+            "DL"
+        ]
+    }
+]
