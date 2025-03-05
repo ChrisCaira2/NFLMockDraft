@@ -11,7 +11,7 @@ This project is an NFL Mock Draft Tool that allows users to simulate an NFL draf
 - View drafted players and their details
 
 ## Screenshots
-
+/Users/chriscaira/NFLMockDraft/public/screenshots/teams.png
 ![Select Teams][/Users/chriscaira/NFLMockDraft/public/screenshots/teams.png]
 ![Draft Players][public/screenshots/draft.png]
 ![Mock Draft][public/screenshots/mock.png]
