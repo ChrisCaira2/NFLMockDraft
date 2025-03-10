@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import TeamSelection from '../components/TeamSelection';
 import RoundSelection from '../components/RoundSelection';
+import TradePicks from '../components/TradePicks';
 
 export default function DraftSetup() {
     const [teams, setTeams] = useState([]);
     const [selectedTeams, setSelectedTeams] = useState([]);
     const [rounds, setRounds] = useState(1);
+    const [teamPicks, setTeamPicks] = useState({});
 
     useEffect(() => {
         async function fetchTeams() {
@@ -15,6 +17,19 @@ export default function DraftSetup() {
             setTeams(data);
         }
         fetchTeams();
+    }, []);
+
+    useEffect(() => {
+        async function fetchTeamPicks() {
+            const response = await fetch('/data/teamPicks.json');
+            const data = await response.json();
+            const picks = data.reduce((acc, team) => {
+                acc[team.team] = team.picks;
+                return acc;
+            }, {});
+            setTeamPicks(picks);
+        }
+        fetchTeamPicks();
     }, []);
 
     const handleTeamSelection = (team) => {
@@ -37,9 +52,19 @@ export default function DraftSetup() {
         }
     };
 
+    const handleTrade = (team1, team1Picks, team2, team2Picks) => {
+        setTeamPicks(prevPicks => {
+            const newPicks = { ...prevPicks };
+            newPicks[team1] = newPicks[team1].filter(pick => !team1Picks.includes(pick)).concat(team2Picks);
+            newPicks[team2] = newPicks[team2].filter(pick => !team2Picks.includes(pick)).concat(team1Picks);
+            return newPicks;
+        });
+    };
+
     return (
         <div className="container">
-            <h1>Select Teams</h1>
+            <h1>Select Teams to Draft For!</h1>
+            <h2>Teams Not Selected Will Be Autodrafted.</h2>
             <button className="select-all-button" onClick={handleSelectAll}>
                 {selectedTeams.length === teams.length ? 'Unselect All' : 'Select All'}
             </button>
@@ -54,6 +79,7 @@ export default function DraftSetup() {
                 ))}
             </div>
             <RoundSelection rounds={rounds} onSelect={handleRoundSelection} />
+            {/* <TradePicks teams={teams} teamPicks={teamPicks} onTrade={handleTrade} /> */}
             <Link href={{ pathname: '/draft', query: { rounds, selectedTeams: JSON.stringify(selectedTeams) } }} passHref>
                 <div className="button">Start Draft</div>
             </Link>

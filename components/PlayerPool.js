@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function PlayerPool({ onDraftPlayer, currentPickIndex, players, isOpenInitially }) {
+export default function PlayerPool({ onDraftPlayer, currentPickIndex, players, isOpenInitially, selectedTeams, draftOrder }) {
     const [isOpen, setIsOpen] = useState(isOpenInitially);
     const [filter, setFilter] = useState('');
 
@@ -27,6 +27,35 @@ export default function PlayerPool({ onDraftPlayer, currentPickIndex, players, i
 
     // Sort players by rank
     const sortedPlayers = filteredPlayers.sort((a, b) => a.rank - b.rank);
+
+    const roundLengths = {
+        "1st Round": 32,
+        "2nd Round": 32,
+        "3rd Round": 37,
+        "4th Round": 38,
+        "5th Round": 39,
+        "6th Round": 40,
+        "7th Round": 39
+    };
+
+    let cumulativePicks = 0;
+    let currentRound = null;
+
+    for (const round of Object.keys(draftOrder)) {
+        const roundLength = roundLengths[round];
+        if (currentPickIndex < cumulativePicks + roundLength) {
+            currentRound = round;
+            break;
+        }
+        cumulativePicks += roundLength;
+    }
+
+    const currentTeam = draftOrder[currentRound]?.[currentPickIndex - cumulativePicks]?.team;
+
+    // Determine if it is the user's turn
+    const isUserTurn = selectedTeams.some(team => team.abr === currentTeam);
+    console.log(`Current team: ${currentTeam}`);
+    console.log(`Is user turn: ${isUserTurn}`);
 
     return (
         <div className={`player-pool ${isOpen ? 'open' : 'closed'}`}>
@@ -74,7 +103,13 @@ export default function PlayerPool({ onDraftPlayer, currentPickIndex, players, i
                                 <span>{player.school}</span>
                                 <span>{player.height}</span>
                                 <span>{player.weight}</span>
-                                <button className="draft-button" onClick={() => handleDraftPlayer(player)}>Draft</button>
+                                <button
+                                    className="draft-button"
+                                    onClick={() => isUserTurn && handleDraftPlayer(player)}
+                                    disabled={!isUserTurn}
+                                >
+                                    Draft
+                                </button>
                             </div>
                         ))}
                     </div>
@@ -174,7 +209,11 @@ export default function PlayerPool({ onDraftPlayer, currentPickIndex, players, i
                     cursor: pointer;
                     transition: background-color 0.3s;
                 }
-                .draft-button:hover {
+                .draft-button:disabled {
+                    background-color: #555;
+                    cursor: not-allowed;
+                }
+                .draft-button:hover:not(:disabled) {
                     background-color: #0056b3;
                 }
             `}</style>

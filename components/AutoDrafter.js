@@ -1,35 +1,57 @@
 import { useEffect } from 'react';
 
-export default function AutoDrafter({ draftOrder, selectedTeams, players, setPlayers, teamNeeds, onDraftPlayer, currentPickIndex, setCurrentPickIndex, isManualMode, setIsManualMode, isAutoDrafting }) {
+export default function AutoDrafter({ draftOrder, selectedTeams, players, setPlayers, teamNeeds, onDraftPlayer, currentPickIndex, setCurrentPickIndex, isManualMode, setIsManualMode, isAutoDrafting, rounds }) {
     useEffect(() => {
         const autoDraft = async () => {
-            const rounds = Object.keys(draftOrder);
-            const totalPicks = rounds.reduce((acc, round) => acc + draftOrder[round].length, 0);
+            const roundsToShow = Object.keys(draftOrder).slice(0, rounds);
+            const totalPicks = roundsToShow.reduce((acc, round) => acc + draftOrder[round].length, 0);
 
             if (currentPickIndex >= totalPicks) {
                 return;
             }
 
-            const currentRoundIndex = Math.floor(currentPickIndex / 32);
-            const currentRound = rounds[currentRoundIndex];
-            const currentPickPosition = currentPickIndex % 32;
-            const currentPick = draftOrder[currentPickPosition];
-            if (!currentPick) {
+            const roundLengths = {
+                "1st Round": 32,
+                "2nd Round": 32,
+                "3rd Round": 37,
+                "4th Round": 38,
+                "5th Round": 41,
+                "6th Round": 40,
+                "7th Round": 39
+            };
+
+            let cumulativePicks = 0;
+            let currentRound = null;
+            let currentPickPosition = null;
+
+            for (const round of roundsToShow) {
+                const roundLength = roundLengths[round];
+                if (currentPickIndex < cumulativePicks + roundLength) {
+                    currentRound = round;
+                    currentPickPosition = currentPickIndex - cumulativePicks;
+                    break;
+                }
+                cumulativePicks += roundLength;
+            }
+
+            if (!currentRound || currentPickPosition === null) {
                 return;
             }
 
-            if (selectedTeams.includes(currentPick)) {
+            const currentTeam = draftOrder[currentRound][currentPickPosition]?.team;
+
+            if (selectedTeams.some(team => team.abr === currentTeam)) {
                 // Switch to manual mode for user-selected team
                 setIsManualMode(true);
                 return;
             }
 
-            console.log(`Current team: ${currentPick}`);
+            console.log(`Current team: ${currentTeam}`);
             console.log(`Team needs:`, teamNeeds);
 
             // Find the best player based on team needs and overall ranking
-            const teamNeed = teamNeeds.find(team => team.team === currentPick);
-            console.log(`Team need for ${currentPick}:`, teamNeed);
+            const teamNeed = teamNeeds.find(team => team.team === currentTeam);
+            console.log(`Team need for ${currentTeam}:`, teamNeed);
             let bestPlayer = null;
 
             if (teamNeed && teamNeed.needs.length > 0) {
@@ -109,9 +131,32 @@ export default function AutoDrafter({ draftOrder, selectedTeams, players, setPla
         if (!isManualMode && isAutoDrafting) {
             const interval = setInterval(() => {
                 if (draftOrder) {
-                    const rounds = Object.keys(draftOrder);
-                    const totalPicks = rounds.reduce((acc, round) => acc + draftOrder[round].length, 0);
-                    if (currentPickIndex < totalPicks && !selectedTeams.includes(draftOrder[rounds[Math.floor(currentPickIndex / 32)]]?.[currentPickIndex % 32])) {
+                    const roundsToShow = Object.keys(draftOrder).slice(0, rounds);
+                    const totalPicks = roundsToShow.reduce((acc, round) => acc + draftOrder[round].length, 0);
+                    const roundLengths = {
+                        "1st Round": 32,
+                        "2nd Round": 32,
+                        "3rd Round": 37,
+                        "4th Round": 38,
+                        "5th Round": 41,
+                        "6th Round": 40,
+                        "7th Round": 39
+                    };
+                    let cumulativePicks = 0;
+                    let currentRound = null;
+                    let currentPickPosition = null;
+
+                    for (const round of roundsToShow) {
+                        const roundLength = roundLengths[round];
+                        if (currentPickIndex < cumulativePicks + roundLength) {
+                            currentRound = round;
+                            currentPickPosition = currentPickIndex - cumulativePicks;
+                            break;
+                        }
+                        cumulativePicks += roundLength;
+                    }
+
+                    if (currentPickIndex < totalPicks && !selectedTeams.some(team => team.abr === draftOrder[currentRound]?.[currentPickPosition]?.team)) {
                         autoDraft();
                     } else {
                         clearInterval(interval);
@@ -121,7 +166,7 @@ export default function AutoDrafter({ draftOrder, selectedTeams, players, setPla
 
             return () => clearInterval(interval);
         }
-    }, [currentPickIndex, draftOrder, selectedTeams, players, teamNeeds, onDraftPlayer, setCurrentPickIndex, setPlayers, isManualMode, setIsManualMode, isAutoDrafting]);
+    }, [currentPickIndex, draftOrder, selectedTeams, players, teamNeeds, onDraftPlayer, setCurrentPickIndex, setPlayers, isManualMode, setIsManualMode, isAutoDrafting, rounds]);
 
     return null;
 }

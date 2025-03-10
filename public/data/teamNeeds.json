@@ -42,9 +42,9 @@
     {
         "team": "CAR",
         "needs": [
-            "EDGE",
-            "WR",
             "DL",
+            "WR",
+            "EDGE",
             "CB",
             "S"
         ]
@@ -56,7 +56,7 @@
             "IOL",
             "EDGE",
             "RB",
-            "DL"
+            "S"
         ]
     },
     {
@@ -164,7 +164,7 @@
     {
         "team": "LV",
         "needs": [
-            "QB",
+            "OT",
             "RB",
             "WR",
             "CB",
@@ -317,9 +317,9 @@
         "needs": [
             "WR",
             "EDGE",
-            "OT",
+            "DL",
             "CB",
-            "DL"
+            "OT"
         ]
     }
 ]

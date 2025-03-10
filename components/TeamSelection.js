@@ -18,6 +18,7 @@ export default function TeamSelection({ team, onSelect, isSelected }) {
                     font-size: 1.2rem;
                     transition: background-color 0.3s;
                     display: flex;
+                    justify-content: center;
                     align-items: center;
                     width: 250px; /* Set a fixed width to fit the largest team name */
                 }
