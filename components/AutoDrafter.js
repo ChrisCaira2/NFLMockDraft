@@ -46,12 +46,9 @@ export default function AutoDrafter({ draftOrder, selectedTeams, players, setPla
                 return;
             }
 
-            console.log(`Current team: ${currentTeam}`);
-            console.log(`Team needs:`, teamNeeds);
-
             // Find the best player based on team needs and overall ranking
             const teamNeed = teamNeeds.find(team => team.team === currentTeam);
-            console.log(`Team need for ${currentTeam}:`, teamNeed);
+
             let bestPlayer = null;
 
             if (teamNeed && teamNeed.needs.length > 0) {
@@ -79,7 +76,6 @@ export default function AutoDrafter({ draftOrder, selectedTeams, players, setPla
                             const topPlayerAtPositionIndex = players.indexOf(topPlayerAtPosition);
                             if (topPlayerAtPositionIndex <= topPlayerIndex + 5) {
                                 bestPlayer = topPlayerAtPosition;
-                                console.log(`Selected player for ${position}:`, bestPlayer);
                                 break;
                             }
                         }
@@ -90,23 +86,36 @@ export default function AutoDrafter({ draftOrder, selectedTeams, players, setPla
             // If no player found based on needs, select the best available player
             if (!bestPlayer) {
                 bestPlayer = players[0];
-                console.log(`No player found based on needs, selecting best available player:`, bestPlayer);
             }
 
             // Add randomness based on the round
             const randomFactor = Math.random();
-            if (currentPickIndex < 10 && randomFactor < 0.1) { // 10% randomness for top 10 picks
-                const randomIndex = Math.min(players.indexOf(bestPlayer) + Math.floor(Math.random() * 3) + 1, players.length - 1);
-                bestPlayer = players[randomIndex];
-                console.log(`Randomly selected player (top 10):`, bestPlayer);
-            } else if (currentPickIndex >= 32 && currentPickIndex < 96 && randomFactor < 0.4) { // 40% randomness for rounds 2-3
-                const randomIndex = Math.min(players.indexOf(bestPlayer) + Math.floor(Math.random() * 5) + 1, players.length - 1);
-                bestPlayer = players[randomIndex];
-                console.log(`Randomly selected player (rounds 2-3):`, bestPlayer);
-            } else if (currentPickIndex >= 96 && randomFactor < 0.5) { // 50% randomness for rounds 4-7
-                const randomIndex = Math.min(players.indexOf(bestPlayer) + Math.floor(Math.random() * 10) + 1, players.length - 1);
-                bestPlayer = players[randomIndex];
-                console.log(`Randomly selected player (rounds 4-7):`, bestPlayer);
+            if (teamNeed && teamNeed.needs.length > 0) {
+                if (currentPickIndex <= 10 && randomFactor < 0.1) { // 10% randomness for top 10 picks
+                    const randomIndex = Math.min(players.indexOf(bestPlayer) + Math.floor(Math.random() * 3) + 1, players.length - 1);
+                    const randomPlayer = players[randomIndex];
+                    if (teamNeed.needs.includes(randomPlayer.position)) {
+                        bestPlayer = randomPlayer;
+                    }
+                } else if (currentPickIndex > 10 && currentPickIndex <= 32 && randomFactor < 0.15) { // 15% randomness for picks 11-32
+                    const randomIndex = Math.min(players.indexOf(bestPlayer) + Math.floor(Math.random() * 5) + 1, players.length - 1);
+                    const randomPlayer = players[randomIndex];
+                    if (teamNeed.needs.includes(randomPlayer.position)) {
+                        bestPlayer = randomPlayer;
+                    }
+                } else if (currentPickIndex > 32 && currentPickIndex <= 96 && randomFactor < 0.4) { // 40% randomness for rounds 2-3
+                    const randomIndex = Math.min(players.indexOf(bestPlayer) + Math.floor(Math.random() * 5) + 1, players.length - 1);
+                    const randomPlayer = players[randomIndex];
+                    if (teamNeed.needs.includes(randomPlayer.position)) {
+                        bestPlayer = randomPlayer;
+                    }
+                } else if (currentPickIndex > 96 && randomFactor < 0.5) { // 50% randomness for rounds 4-7
+                    const randomIndex = Math.min(players.indexOf(bestPlayer) + Math.floor(Math.random() * 10) + 1, players.length - 1);
+                    const randomPlayer = players[randomIndex];
+                    if (teamNeed.needs.includes(randomPlayer.position)) {
+                        bestPlayer = randomPlayer;
+                    }
+                }
             }
 
             // Draft the best player
@@ -119,6 +128,11 @@ export default function AutoDrafter({ draftOrder, selectedTeams, players, setPla
             if (teamNeed) {
                 teamNeed.needs = teamNeed.needs.filter(pos => pos !== bestPlayer.position);
                 teamNeed.needs.push(bestPlayer.position);
+
+                // Remove QB from needs if a QB has already been selected
+                if (bestPlayer.position === 'QB') {
+                    teamNeed.needs = teamNeed.needs.filter(pos => pos !== 'QB');
+                }
             }
 
             // Wait for 1 second before the next pick

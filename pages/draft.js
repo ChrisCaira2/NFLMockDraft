@@ -210,15 +210,15 @@ export default function Draft() {
     };
 
     const handleTrade = (team1, team1Picks, team2, team2Picks) => {
-        console.log(`Trading picks from ${team1}:`, team1Picks);
-        console.log(`Trading picks from ${team2}:`, team2Picks);
+        // console.log(`Trading picks from ${team1}:`, team1Picks);
+        // console.log(`Trading picks from ${team2}:`, team2Picks);
 
         setTeamPicks(prevPicks => {
             const newPicks = { ...prevPicks };
             newPicks[team1] = prevPicks[team1].filter(pick => !team1Picks.includes(pick)).concat(team2Picks);
             newPicks[team2] = prevPicks[team2].filter(pick => !team2Picks.includes(pick)).concat(team1Picks);
-            console.log(`Updated picks for ${team1}:`, newPicks[team1]);
-            console.log(`Updated picks for ${team2}:`, newPicks[team2]);
+            // console.log(`Updated picks for ${team1}:`, newPicks[team1]);
+            // console.log(`Updated picks for ${team2}:`, newPicks[team2]);
 
             // Update draft order with new picks
             const newDraftOrder = { ...draftOrder };
@@ -387,7 +387,7 @@ export default function Draft() {
 
     return (
         <div className="container">
-            <h1>Mock Draft</h1>
+            <h1>NFL Mock Draft</h1>
             <div className="controls">
                 <button onClick={handleBack} className="back-button">Back</button>
                 <button onClick={toggleAutoDraft}>
@@ -491,7 +491,8 @@ export default function Draft() {
                 }
                 .draft-board {
                     width: 100%;
-                    margin-bottom: 40px;
+                    margin-bottom: 80px;
+                    margin-top: 20px;
                 }
                 .draft-board.wide .grid-item {
                     min-width: 350px; /* Increase the width for 1st and 2nd round */

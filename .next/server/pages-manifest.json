@@ -3,6 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/draft": "pages/draft.js",
-  "/draft-setup": "pages/draft-setup.js",
-  "/": "pages/index.js"
+  "/": "pages/index.js",
+  "/draft-setup": "pages/draft-setup.js"
 }

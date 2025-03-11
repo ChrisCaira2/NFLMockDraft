@@ -54,8 +54,8 @@ export default function PlayerPool({ onDraftPlayer, currentPickIndex, players, i
 
     // Determine if it is the user's turn
     const isUserTurn = selectedTeams.some(team => team.abr === currentTeam);
-    console.log(`Current team: ${currentTeam}`);
-    console.log(`Is user turn: ${isUserTurn}`);
+    // console.log(`Current team: ${currentTeam}`);
+    // console.log(`Is user turn: ${isUserTurn}`);
 
     return (
         <div className={`player-pool ${isOpen ? 'open' : 'closed'}`}>

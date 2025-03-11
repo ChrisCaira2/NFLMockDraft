@@ -4,7 +4,7 @@
         "school": "Colorado",
         "class": "Jr",
         "position": "ATH",
-        "rank": 1,
+        "rank": 3,
         "height": "6-0",
         "weight": 188
     },
@@ -76,7 +76,7 @@
         "school": "Miami (Fla.)",
         "class": "Sr",
         "position": "QB",
-        "rank": 3,
+        "rank": 1,
         "height": "6-2",
         "weight": 219
     },
@@ -292,7 +292,7 @@
         "school": "East Carolina",
         "class": "Sr",
         "position": "CB",
-        "rank": 33,
+        "rank": 49,
         "height": "6-2",
         "weight": 194
     },
@@ -436,7 +436,7 @@
         "school": "Purdue",
         "class": "Jr",
         "position": "OT",
-        "rank": 49,
+        "rank": 56,
         "height": "6-4",
         "weight": 300
     },
@@ -499,7 +499,7 @@
         "school": "Texas",
         "class": "Sr",
         "position": "DL",
-        "rank": 56,
+        "rank": 66,
         "height": "6-5",
         "weight": 311
     },
@@ -589,7 +589,7 @@
         "school": "North Carolina",
         "class": "Jr",
         "position": "RB",
-        "rank": 66,
+        "rank": 33,
         "height": "6-0",
         "weight": 220
     },
