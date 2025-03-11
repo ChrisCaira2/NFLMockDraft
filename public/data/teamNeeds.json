@@ -72,9 +72,9 @@
     {
         "team": "CLE",
         "needs": [
+            "QB",
             "ATH",
             "EDGE",
-            "QB",
             "CB",
             "RB",
             "DL"
@@ -236,6 +236,7 @@
         "team": "NYG",
         "needs": [
             "QB",
+            "ATH",
             "CB",
             "EDGE",
             "DL",
